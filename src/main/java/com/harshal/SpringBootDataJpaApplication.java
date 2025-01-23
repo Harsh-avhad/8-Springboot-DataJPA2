@@ -8,6 +8,7 @@ import java.util.List;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.data.domain.Example;
 
 import com.harshal.entity.Student;
 import com.harshal.repository.StudentRepository;
@@ -35,9 +36,17 @@ public class SpringBootDataJpaApplication {
 		     List<Student> allStudentsByHQL = studentRepository.getStudents();
 		     allStudentsByHQL.forEach(System.out::println);
 		
+		     //query by example 
+		     
+		     Student s = new Student();
+				s.setGender("Male");
+				s.setRank(90l);
+				
+				Example<Student> example = Example.of(s);
+				List<Student> student = studentRepository.findAll(example);
+				student.forEach(System.out::println);
 		
-       
-
+      
 		
         
         context.close();
